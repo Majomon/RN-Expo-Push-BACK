@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PushNotificationsService } from './push-notifications/push-notifications.service';
 
@@ -13,9 +13,9 @@ export class AppController {
     return this.appService.getHello();
   } */
 
-  @Post("/send-notification")
-  sendNotification() {
-    const toTokens = ['ExponentPushToken[4a0Bp7P1toUCg-IGHobnq8]'];
-    this.pushNotificationService.sendNotification(toTokens);
+  @Post('/send-notification')
+  sendNotification(@Body() body: { to: string[] }) {
+    // const toTokens = ['ExponentPushToken[4a0Bp7P1toUCg-IGHobnq8]'];
+    this.pushNotificationService.sendNotification(body.to);
   }
 }
